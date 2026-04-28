@@ -2,7 +2,7 @@
 session_start();
 require_once dirname(__DIR__) . '/configs/config.php';
 
-$pageRequest = rtrim($_SERVER['REQUEST_URI'], '/') ?? "login";
+$pageRequest = parse_url(rtrim($_SERVER['REQUEST_URI'], '/'), PHP_URL_PATH) ?? "login";
 
 switch ($pageRequest) {
     // login
