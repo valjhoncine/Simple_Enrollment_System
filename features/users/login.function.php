@@ -1,5 +1,5 @@
 <?php
-require_once FEATURES_DIRECTORY . '/users/User.php';
+require_once __DIR__ . '/UserService.php';
 
 const LOGIN_VALIDATION_ERRORS = "LOGIN_VALIDATION_ERRORS";
 $errors = getSessionErrorMessage(LOGIN_VALIDATION_ERRORS);
@@ -28,18 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"])) {
         navigateTo($routes, "login");
     }
 
-    $user = new User($connection);
+    $userService = new UserService($connection);
 
-    $result = $user->authenticate($email, $password);
+    $result = $userService->authenticate($email, $password);
 
     if ($result) {
-        $_SESSION[SESSION_USER] = [
-            "first_name" => $user->first_name,
-            "last_name" => $user->last_name,
-            "email" => $user->email,
-            "created_at" => $user->created_at,
-            "updated_at" => $user->updated_at,
-        ];
+        $_SESSION[SESSION_USER] = $result;
         navigateTo($routes, "dashboard");
     } else {
         $_SESSION["INVALID_CREDENTIALS"] = "Invalid Credentials.";

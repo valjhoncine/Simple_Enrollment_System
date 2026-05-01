@@ -1,5 +1,5 @@
 <?php
-require_once FEATURES_DIRECTORY . '/users/User.php';
+require_once __DIR__ . '/UserService.php';
 
 const REGISTER_VALIDATION_ERRORS = "REGISTER_VALIDATION_ERRORS";
 $errors = getSessionErrorMessage(REGISTER_VALIDATION_ERRORS);
@@ -49,15 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"])) {
         navigateTo($routes, "register");
     }
 
-    $user = new User($connection);
+    $userService = new UserService($connection);
 
-    $result = $user->getUserByEmail($email);
+    $result = $userService->getUserByEmail($email);
     if ($result) {
         $_SESSION[INSERT_FAILED] = "Failed to register, email may not be available.";
         navigateTo($routes, "register");
     }
 
-    $result = $user->save(
+    $result = $userService->save(
         $first_name,
         $last_name,
         $email,
