@@ -27,7 +27,6 @@
         echo $scripts;
     }
     ?>
-    ?>
 </body>
 
 </html>
