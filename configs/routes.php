@@ -28,6 +28,7 @@ class Routes
         return [
             'login' => new Route($baseUrl .  '/', $featuresDirectory . '/users/login.page.php'),
             'register' => new Route($baseUrl .  '/register', $featuresDirectory . '/users/register.page.php'),
+            'logout' => new Route($baseUrl .  '/logout', $featuresDirectory . '/users/logout.function.php'),
             'dashboard' => new Route($baseUrl .  '/dashboard', $featuresDirectory . '/dashboard/dashboard.page.php'),
         ];
     }

@@ -36,6 +36,7 @@ class User
                 $this->first_name = $row["first_name"];
                 $this->last_name = $row["last_name"];
                 $this->email = $row["email"];
+                $this->passwordhash = $row["passwordhash"];
                 $this->created_at = $row["created_at"];
                 $this->updated_at = $row["updated_at"];
             }
@@ -74,5 +75,13 @@ class User
 
         mysqli_stmt_close($statement);
         return $result;
+    }
+
+    public function authenticate($email, $password): bool
+    {
+        $found = $this->getUserByEmail($email);
+        $tempHash = $this->passwordhash;
+        $this->passwordhash = "";
+        return $found && password_verify($password, $tempHash);
     }
 }

@@ -11,6 +11,7 @@ define('HTTP_POST', 'POST');
 define('HTTP_PUT', 'PUT');
 define('HTTP_DELETE', 'DELETE');
 
+define('SESSION_USER', "SESSION_USER");
 define('OLD_FORM_VAL', "OLD__FORM_VALUES");
 
 define('INSERT_SUCCESS', "INSERT_SUCCESS");
