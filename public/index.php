@@ -8,32 +8,24 @@ $activeSideNavigation = "";
 $currentUserFullname = isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]->first_name . ' ' . $_SESSION[SESSION_USER]->last_name : "";
 $currentUserEmail = isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]->email : "";
 
-switch ($pageRequest) {
-    // login
-    case BASE_URL:
-    case getRouteUrl($routes, "login"):
+$routeMap = [];
+foreach ($routes as $route) {
+    $routeMap[rtrim($route->url(), '/')] = $route;
+}
+
+if (isset($routeMap[$pageRequest])) {
+    $route = $routeMap[$pageRequest];
+    
+    if ($route->middleware() === ROUTE_PUBLIC) {
         publicPage($routes);
-        require getRouteFilePath($routes, "login");
-        break;
-    // register
-    case getRouteUrl($routes, "register"):
-        publicPage($routes);
-        require getRouteFilePath($routes, "register");
-        break;
-    case getRouteUrl($routes, "logout"):
+    } elseif ($route->middleware() === ROUTE_PROTECTED) {
         authGuard($routes);
-        require getRouteFilePath($routes, "logout");
-        break;
-    case getRouteUrl($routes, "dashboard"):
-        $activeSideNavigation = "dashboard";
-        authGuard($routes);
-        require getRouteFilePath($routes, "dashboard");
-        break;
-    // not found
-    default:
-        http_response_code(404);
-        require FEATURES_DIRECTORY . '/errors/404.php';
-        break;
+    }
+    $activeSideNavigation = $route->meta();
+    require $route->path();
+} else {
+    http_response_code(404);
+    require FEATURES_DIRECTORY . '/errors/404.php';
 }
 
 function authGuard($routes)

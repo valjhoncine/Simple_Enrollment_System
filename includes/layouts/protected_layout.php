@@ -56,6 +56,10 @@
                             <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
                             Dashboard
                         </a>
+                        <a class="nav-link <?= ($activeSideNavigation == "users") ? "active" : "" ?>" href="<?= getRouteUrl($routes, "users") ?>">
+                            <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
+                            Users
+                        </a>
                     </div>
                 </div>
                 <!-- Sidenav Footer-->
@@ -76,7 +80,7 @@
                                 <div class="col-auto mb-3">
                                     <h1 class="page-header-title">
                                         <div class="page-header-icon"><i data-feather="file"></i></div>
-                                        Dashboard
+                                        <?= ucfirst($activeSideNavigation) ?>
                                     </h1>
                                 </div>
                                 <!-- <div class="col-12 col-xl-auto mb-3"></div> -->
