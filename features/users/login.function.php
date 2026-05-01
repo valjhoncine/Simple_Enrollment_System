@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"])) {
     $result = $userService->authenticate($email, $password);
 
     if ($result) {
+        session_regenerate_id(true);
         $_SESSION[SESSION_USER] = $result;
         navigateTo($routes, "dashboard");
     } else {
