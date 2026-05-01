@@ -5,6 +5,9 @@ require_once dirname(__DIR__) . '/configs/config.php';
 $pageRequest = parse_url(rtrim($_SERVER['REQUEST_URI'], '/'), PHP_URL_PATH) ?? "login";
 
 $activeSideNavigation = "";
+$currentUserFullname = isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]["first_name"] . ' ' . $_SESSION[SESSION_USER]["last_name"] : "";
+$currentUserEmail = isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]["email"] : "";
+
 switch ($pageRequest) {
     // login
     case BASE_URL:

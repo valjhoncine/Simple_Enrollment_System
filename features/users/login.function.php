@@ -33,7 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"])) {
     $result = $user->authenticate($email, $password);
 
     if ($result) {
-        $_SESSION[SESSION_USER] = $user;
+        $_SESSION[SESSION_USER] = [
+            "first_name" => $user->first_name,
+            "last_name" => $user->last_name,
+            "email" => $user->email,
+            "created_at" => $user->created_at,
+            "updated_at" => $user->updated_at,
+        ];
         navigateTo($routes, "dashboard");
     } else {
         $_SESSION["INVALID_CREDENTIALS"] = "Invalid Credentials.";
