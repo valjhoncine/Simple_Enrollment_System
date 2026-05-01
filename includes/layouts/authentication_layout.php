@@ -21,7 +21,13 @@
         </div>
     </div>
 
-    <?php include INCLUDES_DIRECTORY . '/partials/scripts.php'; ?>
+    <?php
+    include INCLUDES_DIRECTORY . '/partials/scripts.php';
+    if (isset($scripts)) {
+        echo $scripts;
+    }
+    ?>
+    ?>
 </body>
 
 </html>

@@ -33,4 +33,3 @@ class Routes
     }
 }
 define('BASE_URL', env()["BASE_URL"]);
-$routes = Routes::get(BASE_URL, FEATURES_DIRECTORY);

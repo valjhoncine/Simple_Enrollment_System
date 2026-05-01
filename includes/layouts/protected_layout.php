@@ -45,7 +45,7 @@
             <nav class="sidenav shadow-right sidenav-light">
                 <div class="sidenav-menu">
                     <div class="nav accordion" id="accordionSidenav">
-                        
+
                         <!-- Sidenav Heading (Addons)-->
                         <div class="sidenav-menu-heading"></div>
                         <!-- Sidenav Link (Charts)-->
@@ -89,8 +89,13 @@
             </footer>
         </div>
     </div>
-    
-    <?php include INCLUDES_DIRECTORY . '/partials/scripts.php'; ?>
+
+    <?php
+    include INCLUDES_DIRECTORY . '/partials/scripts.php';
+    if (isset($scripts)) {
+        echo $scripts;
+    }
+    ?>
 </body>
 
 </html>

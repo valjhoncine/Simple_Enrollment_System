@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/authenticate.function.php';
+require __DIR__ . '/login.function.php';
 $pageTitle = "Login";
 
 ob_start();
@@ -15,11 +15,20 @@ ob_start();
                     <input type="hidden" name="action" value="login" readonly required>
                     <div class="mb-3">
                         <label class="small mb-1" for="inputEmailAddress">Email</label>
-                        <input class="form-control" id="inputEmailAddress" name="email" type="email" placeholder="Enter email address" />
+                        <input class="form-control"
+                            id="inputEmailAddress"
+                            name="email"
+                            type="email"
+                            placeholder="Enter email address"
+                            value="<?= getOldFormValue("email") ?>" />
                     </div>
                     <div class="mb-3">
                         <label class="small mb-1" for="inputPassword">Password</label>
-                        <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Enter password" />
+                        <input class="form-control"
+                            id="inputPassword"
+                            name="password"
+                            type="password"
+                            placeholder="Enter password" />
                     </div>
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                         <!-- <a class="small" href="auth-password-basic.html">Forgot Password?</a> -->
@@ -35,5 +44,20 @@ ob_start();
 </div>
 <?php
 $content = ob_get_clean();
+
+$scripts = ob_start();
+if (isset($_SESSION[INSERT_SUCCESS])) {
+    $ifMes = $_SESSION[INSERT_SUCCESS];
+    unset($_SESSION[INSERT_SUCCESS]);
+?>
+    <script>
+        Swal.fire({
+            title: "<?= $ifMes ?>",
+            icon: "success"
+        });
+    </script>
+<?php
+}
+$scripts = ob_get_clean();
 include dirname(__DIR__) . '/../includes/layouts/authentication_layout.php';
 ?>
