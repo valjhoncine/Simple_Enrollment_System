@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST) {
 
     switch ($action) {
         case "login":
-            navigateTo($routes, "login");
+            navigateTo($routes, "dashboard");
             break;
         case "register":
             navigateTo($routes, "register");

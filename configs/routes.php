@@ -26,8 +26,9 @@ class Routes
     public static function get($baseUrl, $featuresDirectory)
     {
         return [
-            'login' => new Route($baseUrl .  '/', $featuresDirectory . '/users/pages/login.page.php'),
-            'register' => new Route($baseUrl .  '/register', $featuresDirectory . '/users/pages/register.page.php'),
+            'login' => new Route($baseUrl .  '/', $featuresDirectory . '/users/login.page.php'),
+            'register' => new Route($baseUrl .  '/register', $featuresDirectory . '/users/register.page.php'),
+            'dashboard' => new Route($baseUrl .  '/dashboard', $featuresDirectory . '/dashboard/dashboard.page.php'),
         ];
     }
 }

@@ -22,7 +22,7 @@ ob_start();
                         <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Enter password" />
                     </div>
                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <a class="small" href="auth-password-basic.html">Forgot Password?</a>
+                        <!-- <a class="small" href="auth-password-basic.html">Forgot Password?</a> -->
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                 </form>
@@ -35,5 +35,5 @@ ob_start();
 </div>
 <?php
 $content = ob_get_clean();
-include dirname(__DIR__) . '/../../includes/layouts/authentication_layout.php';
+include dirname(__DIR__) . '/../includes/layouts/authentication_layout.php';
 ?>

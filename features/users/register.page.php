@@ -54,5 +54,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-include dirname(__DIR__) . '/../../includes/layouts/authentication_layout.php';
+include dirname(__DIR__) . '/../includes/layouts/authentication_layout.php';
 ?>
