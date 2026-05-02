@@ -63,6 +63,28 @@ ob_start();
                         </div>
                     </div>
                 </div>
+                <div class="row gx-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="small mb-1">Program/Course</label>
+                            <select class="form-select <?= setFormFieldIsInvalid($errors, "course") ?>"
+                                aria-label="Default select example"
+                                name="course">
+                                <option selected>Select program/course</option>
+                                <?php
+                                if (isset($courses) || !empty($courses)) {
+                                    foreach ($courses as $course) {
+                                ?>
+                                        <option value="<?= $course->id ?>"><?= htmlspecialchars($course->code) . ' - ' . htmlspecialchars($course->name) ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <?php displayError($errors, "course"); ?>
+                        </div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary btn-block">Create Account</button>
                 <a class="btn btn-danger btn-block" href="<?= getRouteUrl($routes, "users") ?>" id="btn_cancel">Cancel</a>
             </form>
@@ -87,8 +109,8 @@ if (isset($_SESSION[INSERT_SUCCESS])) {
             showCancelButton: true,
             confirmButtonText: "Ok",
             cancelButtonText: 'Go to Users Page'
-        }).then(function(result){
-            if(result.dismiss === Swal.DismissReason.cancel){
+        }).then(function(result) {
+            if (result.dismiss === Swal.DismissReason.cancel) {
                 console.log(result)
                 $("#btn_cancel")[0].click();
             }

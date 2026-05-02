@@ -1,8 +1,13 @@
 <?php
 require FEATURES_DIRECTORY . '/users/UserService.php';
+require FEATURES_DIRECTORY . '/courses/Course.php';
+require FEATURES_DIRECTORY . '/courses/CourseService.php';
 
 const REGISTER_VALIDATION_ERRORS = "REGISTER_VALIDATION_ERRORS";
 $errors = getSessionErrorMessage(REGISTER_VALIDATION_ERRORS);
+
+$courseService = new CourseService($connection);
+$courses = $courseService->getCourses();
 
 if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POST['action'] === 'register') {
     $request = $_POST;
@@ -11,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POS
     $last_name = trim($request["last_name"]);
     $email = trim($request["email"]);
     $role = trim($request["role"]);
+    $courseId = trim($request["course"]);
+
     if ($first_name == "") {
         $errors["first_name"][] = "First name is required.";
     }
@@ -23,7 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POS
     if (!array_key_exists($role, PAGE_ACCESS_ROLES)) {
         $errors['role'][] = "Role is required.";
     }
-
+    if(!array_key_exists($courseId, $courses)) {
+        $errors['course'][] = "Program/Course is required.";
+    }
+    
     if (!empty($errors)) {
         $_SESSION[REGISTER_VALIDATION_ERRORS] = $errors;
         $_SESSION[OLD_FORM_VAL] = [
