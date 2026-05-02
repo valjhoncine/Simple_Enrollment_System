@@ -10,6 +10,7 @@ class User
     public $role;
     public $created_at;
     public $updated_at;
+    public ?Profile $profile;
 
     public static function create($first_name, $last_name, $email, $password, $role = 3): User
     {

@@ -29,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POS
     if (!array_key_exists($role, PAGE_ACCESS_ROLES)) {
         $errors['role'][] = "Role is required.";
     }
-    if(!array_key_exists($courseId, $courses)) {
+    if (!array_key_exists($courseId, $courses)) {
         $errors['course'][] = "Program/Course is required.";
     }
-    
+
     if (!empty($errors)) {
         $_SESSION[REGISTER_VALIDATION_ERRORS] = $errors;
         $_SESSION[OLD_FORM_VAL] = [
@@ -52,12 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POS
     }
 
     $password = ucfirst($last_name) . '@' . date("Y");
-    $result = $userService->save(
+    $result = $userService->saveEmployee(
         $first_name,
         $last_name,
         $email,
         $password,
-        $role
+        $role,
+        $courseId
     );
 
     if ($result) {

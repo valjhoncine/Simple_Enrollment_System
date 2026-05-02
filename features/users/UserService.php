@@ -73,6 +73,62 @@ class UserService
 
         return $user;
     }
+    public function saveEmployee($first_name, $last_name, $email, $password, $role, $course_id): ?User
+    {
+        mysqli_begin_transaction($this->connection);
+        try {
+            $user = User::create($first_name, $last_name, $email, $password, $role);
+            $query = "INSERT INTO users (first_name,last_name,email,passwordhash,role)values(?,?,?,?,?)";
+            $statement = mysqli_prepare($this->connection, $query);
+            if (!$statement) {
+                throw new Exception("INSERT_FAILED_STATEMENT_USERS");
+            }
+
+            mysqli_stmt_bind_param(
+                $statement,
+                "ssssi",
+                $user->first_name,
+                $user->last_name,
+                $user->email,
+                $user->passwordhash,
+                $user->role
+            );
+            if (!mysqli_stmt_execute($statement) || mysqli_stmt_affected_rows($statement) <= 0) {
+                throw new Exception("INSERT_FAILED_USERS");
+            }
+
+            $user->id = mysqli_insert_id($this->connection);
+            mysqli_stmt_close($statement);
+
+            $user->profile = Profile::create($user->id, $course_id);
+            $query = "INSERT INTO profiles (user_id,course_id)values(?,?)";
+            $statement = mysqli_prepare($this->connection, $query);
+
+            if (!$statement) {
+                throw new Exception("INSERT_FAILED_STATEMENT_PROFILES");
+            }
+            mysqli_stmt_bind_param(
+                $statement,
+                "ii",
+                $user->id,
+                $user->profile->course_id
+            );
+
+            if (!mysqli_stmt_execute($statement) || mysqli_stmt_affected_rows($statement) <= 0) {
+                throw new Exception("INSERT_FAILED_PROFILES");
+            }
+
+            $user->profile->id = mysqli_insert_id($this->connection);
+            mysqli_stmt_close($statement);
+
+            mysqli_commit($this->connection);
+
+            return $user;
+        } catch (Exception $e) {
+            mysqli_rollback($this->connection);
+            return null;
+        }
+    }
 
     public function authenticate($email, $password): ?User
     {
@@ -87,24 +143,36 @@ class UserService
     public function getUsers(): array
     {
         $query = "SELECT 
-                    id, 
-                    first_name, 
-                    last_name, 
-                    email,
-                    role roleId, 
+                    u.id, 
+                    u.first_name, 
+                    u.last_name, 
+                    u.email,
+                    u.role role_id, 
                     CASE 
-                    WHEN role = 0 THEN 'Administrator'
-                    WHEN role = 1 THEN 'Clerk' 
-                    WHEN role = 2 THEN 'Faculty'
-                    WHEN role = 3 THEN 'Student'
+                    WHEN u.role = 0 THEN 'Administrator'
+                    WHEN u.role = 1 THEN 'Clerk' 
+                    WHEN u.role = 2 THEN 'Faculty'
+                    WHEN u.role = 3 THEN 'Student'
                     ELSE 'No Role' END role,
-                    updated_at,
-                    status statusId,
+                    u.updated_at,
+                    u.status status_id,
                     CASE 
-                    WHEN status = 0 THEN 'Deactivated'
-                    WHEN status = 1 THEN 'Active' 
-                    ELSE 'Undefined' END status
-                FROM users";
+                    WHEN u.status = 0 THEN 'Deactivated'
+                    WHEN u.status = 1 THEN 'Active' 
+                    ELSE 'Undefined' END status,
+                    p.student_number,
+                    p.address,
+                    p.date_of_birth,
+                    c.id course_id,
+                    CASE
+                    WHEN c.id IS NULL THEN 'Pending'
+                    ELSE CONCAT(c.code,' - ',c.name)
+                    END course
+                FROM users u
+                LEFT JOIN profiles p
+                    on p.user_id = u.id
+                LEFT JOIN courses c
+                    on c.id = p.course_id";
         $statement = mysqli_prepare($this->connection, $query);
 
         if (!$statement) {

@@ -25,20 +25,22 @@ CREATE TABLE IF NOT EXISTS courses (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+INSERT INTO courses (code,name)values('ALL-C', 'All Programs/Courses');
 
-DROP TABLE IF EXISTS student_profiles;
-CREATE TABLE IF NOT EXISTS student_profiles(
+DROP TABLE IF EXISTS profiles;
+CREATE TABLE IF NOT EXISTS profiles(
     id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL UNIQUE,
-    student_number VARCHAR(30) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    date_of_birth DATE NOT NULL,
     course_id BIGINT NOT NULL,
+    student_number VARCHAR(30) UNIQUE,
+    address VARCHAR(255),
+    date_of_birth DATE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT fk_student_profiles_users_id FOREIGN KEY (user_id) REFERENCES users (id),
-    CONSTRAINT fk_student_profiles_course_id FOREIGN KEY (course_id) REFERENCES courses (id)
+    CONSTRAINT fk_profiles_users_id FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT fk_profiles_course_id FOREIGN KEY (course_id) REFERENCES courses (id)
 );
+INSERT INTO profiles (user_id,course_id)values(1,1);
 
 DROP TABLE IF EXISTS subjects;
 CREATE TABLE IF NOT EXISTS subjects (

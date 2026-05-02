@@ -18,6 +18,7 @@ function initializeUsersTable() {
             { data: 'last_name', title: 'Last Name' },
             { data: 'email', title: 'Email' },
             { data: 'role', title: 'Role' },
+            { data: 'course', title: 'Program/Course' },
             { data: 'status', title: 'Status' },
             {
                 data: null,
