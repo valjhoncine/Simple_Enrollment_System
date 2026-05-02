@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/UserService.php';
+require_once FEATURES_DIRECTORY . '/users/UserService.php';
 
 const REGISTER_VALIDATION_ERRORS = "REGISTER_VALIDATION_ERRORS";
 $errors = getSessionErrorMessage(REGISTER_VALIDATION_ERRORS);

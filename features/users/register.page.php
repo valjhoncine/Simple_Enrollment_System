@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/register.function.php';
+require FEATURES_DIRECTORY . '/users/functions/register.function.php';
 $pageTitle = "Register";
 ob_start();
 ?>

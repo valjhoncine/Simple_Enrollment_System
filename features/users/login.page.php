@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/login.function.php';
+require FEATURES_DIRECTORY . '/users/functions/login.function.php';
 $pageTitle = "Login";
 
 ob_start();

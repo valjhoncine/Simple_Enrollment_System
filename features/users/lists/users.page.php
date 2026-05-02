@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/users.function.php';
+include FEATURES_DIRECTORY . '/users/functions/users.function.php';
 $pageTitle = "Users";
 ob_start();
 ?>
