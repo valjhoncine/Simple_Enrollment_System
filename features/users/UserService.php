@@ -47,7 +47,7 @@ class UserService
     {
         $user = User::create($first_name, $last_name, $email, $password, $role);
 
-        $query = "INSERT INTO users (first_name,last_name,email,passwordhash,role)values(?,?,?,?,?)";
+        $query = "INSERT INTO users (first_name,last_name,email,passwordhash,role,created_at,updated_at)values(?,?,?,?,?,?,?)";
         $statement = mysqli_prepare($this->connection, $query);
         if (!$statement) {
             return null;
@@ -55,12 +55,14 @@ class UserService
 
         mysqli_stmt_bind_param(
             $statement,
-            "ssssi",
+            "ssssiss",
             $user->first_name,
             $user->last_name,
             $user->email,
             $user->passwordhash,
-            $user->role
+            $user->role,
+            CommonHelper::getDateTimeStringFormat($user->created_at),
+            CommonHelper::getDateTimeStringFormat($user->updated_at),
         );
         $result = mysqli_stmt_execute($statement) && mysqli_stmt_affected_rows($statement) > 0;
 
@@ -78,7 +80,7 @@ class UserService
         mysqli_begin_transaction($this->connection);
         try {
             $user = User::create($first_name, $last_name, $email, $password, $role);
-            $query = "INSERT INTO users (first_name,last_name,email,passwordhash,role)values(?,?,?,?,?)";
+            $query = "INSERT INTO users (first_name,last_name,email,passwordhash,role,created_at,updated_at)values(?,?,?,?,?,?,?)";
             $statement = mysqli_prepare($this->connection, $query);
             if (!$statement) {
                 throw new Exception("INSERT_FAILED_STATEMENT_USERS");
@@ -86,12 +88,14 @@ class UserService
 
             mysqli_stmt_bind_param(
                 $statement,
-                "ssssi",
+                "ssssiss",
                 $user->first_name,
                 $user->last_name,
                 $user->email,
                 $user->passwordhash,
-                $user->role
+                $user->role,
+                CommonHelper::getDateTimeStringFormat($user->created_at),
+                CommonHelper::getDateTimeStringFormat($user->updated_at),
             );
             if (!mysqli_stmt_execute($statement) || mysqli_stmt_affected_rows($statement) <= 0) {
                 throw new Exception("INSERT_FAILED_USERS");

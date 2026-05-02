@@ -74,6 +74,24 @@ class Routes
                 ROUTE_PROTECTED,
                 "users"
             ),
+            'courses' => new Route(
+                $baseUrl .  '/courses',
+                $featuresDirectory . '/courses/pages/courses.page.php',
+                ROUTE_PROTECTED,
+                "courses"
+            ),
+            'courses-create' => new Route(
+                $baseUrl .  '/courses/create',
+                $featuresDirectory . '/courses/pages/courses-create.page.php',
+                ROUTE_PROTECTED,
+                "courses"
+            ),
+            'courses-edit' => new Route(
+                $baseUrl .  '/courses/edit',
+                $featuresDirectory . '/courses/pages/courses-edit.page.php',
+                ROUTE_PROTECTED,
+                "courses"
+            ),
         ];
     }
 }

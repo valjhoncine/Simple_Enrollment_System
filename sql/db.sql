@@ -20,7 +20,7 @@ values ('Enrollment', 'Administrator', 'administrator@enrollment-mail.com', '$2y
 DROP TABLE IF EXISTS courses;
 CREATE TABLE IF NOT EXISTS courses (
     id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    code VARCHAR(50) NOT NULL,
+    code VARCHAR(50) NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

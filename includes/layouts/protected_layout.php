@@ -1,3 +1,19 @@
+<?php
+$routesSidebars = [
+    "dashboard" => [
+        "url" => getRouteUrl($routes, "dashboard"),
+        "meta" => getRouteMeta($routes, "dashboard"),
+    ],
+    "courses" => [
+        "url" => getRouteUrl($routes, "courses"),
+        "meta" => getRouteMeta($routes, "courses"),
+    ],
+    "users" => [
+        "url" => getRouteUrl($routes, "users"),
+        "meta" => getRouteMeta($routes, "users"),
+    ],
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,14 +68,18 @@
                         <!-- Sidenav Heading (Addons)-->
                         <div class="sidenav-menu-heading"></div>
                         <!-- Sidenav Link (Charts)-->
-                        <a class="nav-link <?= ($activeSideNavigation == "dashboard") ? "active" : "" ?>" href="<?= getRouteUrl($routes, "dashboard") ?>">
-                            <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                            Dashboard
-                        </a>
-                        <a class="nav-link <?= ($activeSideNavigation == "users") ? "active" : "" ?>" href="<?= getRouteUrl($routes, "users") ?>">
-                            <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                            Users
-                        </a>
+                        <?php
+                        if (isset($routesSidebars)) {
+                            foreach ($routesSidebars as $sidebar) {
+                        ?>
+                                <a class="nav-link <?= ($activeSideNavigation === $sidebar["meta"]) ? "active" : "" ?>" href="<?= $sidebar["url"] ?>">
+                                    <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
+                                    <?= ucfirst($sidebar["meta"]) ?>
+                                </a>
+                        <?php
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
                 <!-- Sidenav Footer-->
@@ -99,6 +119,17 @@
 
     <?php
     include INCLUDES_DIRECTORY . '/partials/scripts.php';
+    $routesArray = array_map(function($route){
+        return [
+            "url"=>$route->url(),
+            "meta"=>$route->meta(),
+        ];
+    },$routes);
+    ?>
+    <script>
+        const routes = <?php echo json_encode($routesArray); ?>;
+    </script>
+    <?php
     if (isset($scripts)) {
         echo $scripts;
     }
