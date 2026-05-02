@@ -19,6 +19,13 @@ define('INSERT_FAILED', "INSERT_FAILED");
 define('UPDATE_SUCCESS', "UPDATE_SUCCESS");
 define('UPDATE_FAILED', "UPDATE_FAILED");
 
+define('PAGE_ACCESS_ROLES', [
+    '0' => "Administrator",
+    "1" => "Clerk",
+    "2" => "Faculty",
+    "3" => "Student"
+]);
+
 function env()
 {
     return parse_ini_file(BASE_DIRECTORY . '/.env');

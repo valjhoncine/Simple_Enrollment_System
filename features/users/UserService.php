@@ -43,11 +43,11 @@ class UserService
         return $user;
     }
 
-    public function save($first_name, $last_name, $email, $password): ?User
+    public function save($first_name, $last_name, $email, $password, $role = 3): ?User
     {
-        $user = User::create($first_name, $last_name, $email, $password);
+        $user = User::create($first_name, $last_name, $email, $password, $role);
 
-        $query = "INSERT INTO users (first_name,last_name,email,passwordhash)values(?,?,?,?)";
+        $query = "INSERT INTO users (first_name,last_name,email,passwordhash,role)values(?,?,?,?,?)";
         $statement = mysqli_prepare($this->connection, $query);
         if (!$statement) {
             return null;
@@ -55,11 +55,12 @@ class UserService
 
         mysqli_stmt_bind_param(
             $statement,
-            "ssss",
+            "ssssi",
             $user->first_name,
             $user->last_name,
             $user->email,
             $user->passwordhash,
+            $user->role
         );
         $result = mysqli_stmt_execute($statement) && mysqli_stmt_affected_rows($statement) > 0;
 

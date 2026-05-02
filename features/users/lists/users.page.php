@@ -7,7 +7,7 @@ ob_start();
     <div class="card">
         <!-- <div class="card-header">Users Page Table</div> -->
         <div class="card-body">
-            <a class="btn btn-primary mb-2" href="<?= getRouteUrl($routes, 'users-add') ?>">Add New User</a>
+            <a class="btn btn-primary mb-2" href="<?= getRouteUrl($routes, 'users-create') ?>">Add New User</a>
             <table class="table table-bordered table-striped" id="tableUsers"></table>
         </div>
     </div>

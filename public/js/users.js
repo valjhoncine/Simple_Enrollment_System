@@ -10,7 +10,7 @@ function initializeUsersTable() {
         columns: [
             {
                 data: null, render: function (d, t, r, meta) {
-                    return meta.row + meta.settings._iDisplayStart + 1
+                    return meta.row + 1
                 }
             },
             { data: 'id', title: 'ID', visible: false },
@@ -54,6 +54,7 @@ function apiGetUsers() {
 function loadUsersTable(users) {
     if (!users || !users.success) {
         tableUsers.clear().draw()
+        return
     }
     tableUsers.clear()
     tableUsers.rows.add(users.data)

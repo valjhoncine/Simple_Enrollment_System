@@ -68,6 +68,12 @@ class Routes
                 ROUTE_PROTECTED,
                 "users"
             ),
+            'users-create' => new Route(
+                $baseUrl .  '/users/create',
+                $featuresDirectory . '/users/lists/users-create.page.php',
+                ROUTE_PROTECTED,
+                "users"
+            ),
         ];
     }
 }
