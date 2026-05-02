@@ -1,6 +1,5 @@
 <?php
 require FEATURES_DIRECTORY . '/users/UserService.php';
-require FEATURES_DIRECTORY . '/courses/Course.php';
 require FEATURES_DIRECTORY . '/courses/CourseService.php';
 
 const REGISTER_VALIDATION_ERRORS = "REGISTER_VALIDATION_ERRORS";
