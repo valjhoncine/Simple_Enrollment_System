@@ -19,17 +19,12 @@ function initializeUsersTable() {
             { data: 'email', title: 'Email' },
             { data: 'role', title: 'Role' },
             { data: 'course', title: 'Program/Course' },
-            { data: 'status', title: 'Status' },
             {
                 data: null,
-                title: 'Action',
-                orderable: false,
-                searchable: false,
+                title: 'Status',
                 render: function (rowData) {
                     return `
-                        <button class="btn btn-info" data-id="${rowData.id}">
-                            <i class="fa fa-edit"></i>
-                        </button>
+                        <div class="badge bg-${rowData.status === 'Active' ? 'primary' : 'danger'} text-white rounded-pill">${rowData.status}</div>
                     `;
                 }
             }
