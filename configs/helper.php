@@ -79,10 +79,21 @@ function getOldFormValue($key): string
 {
     if (isset($_SESSION[OLD_FORM_VAL])) {
         $old = $_SESSION[OLD_FORM_VAL];
-        if(isset($old[$key])){
+        if (isset($old[$key])) {
             unset($_SESSION[OLD_FORM_VAL][$key]);
             return $old[$key];
         }
     }
     return "";
+}
+function apiResponse($status, $data = null, $errors = null, $message = null)
+{
+    header('Content-Type: application/json');
+    echo json_encode([
+        "success" => $status,
+        "message" => $message,
+        "data" => $data,
+        "error" => $errors
+    ]);
+    exit;
 }

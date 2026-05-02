@@ -82,4 +82,41 @@ class UserService
         $user->passwordhash = "";
         return $user;
     }
+
+    public function getUsers(): array
+    {
+        $query = "SELECT 
+                    id, 
+                    first_name, 
+                    last_name, 
+                    email,
+                    role roleId, 
+                    CASE 
+                    WHEN role = 0 THEN 'Administrator'
+                    WHEN role = 1 THEN 'Clerk' 
+                    WHEN role = 2 THEN 'Faculty'
+                    WHEN role = 3 THEN 'Student'
+                    ELSE 'No Role' END role,
+                    updated_at,
+                    status statusId,
+                    CASE 
+                    WHEN status = 0 THEN 'Deactivated'
+                    WHEN status = 1 THEN 'Active' 
+                    ELSE 'Undefined' END status
+                FROM users";
+        $statement = mysqli_prepare($this->connection, $query);
+
+        if (!$statement) {
+            return [];
+        }
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        mysqli_stmt_close($statement);
+
+        return $rows;
+    }
 }
