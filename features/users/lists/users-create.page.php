@@ -58,7 +58,6 @@ ob_start();
                                 <option selected>Select role</option>
                                 <option value="1">Clerk</option>
                                 <option value="2">Faculty</option>
-                                <option value="3">Student</option>
                             </select>
                             <?php displayError($errors, "role"); ?>
                         </div>
