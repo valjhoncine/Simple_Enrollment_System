@@ -3,22 +3,27 @@ $routesSidebars = [
     "dashboard" => [
         "url" => getRouteUrl($routes, "dashboard"),
         "meta" => getRouteMeta($routes, "dashboard"),
+        "guard" => getRouteGuard($routes, "dashboard"),
     ],
     "courses" => [
         "url" => getRouteUrl($routes, "courses"),
         "meta" => getRouteMeta($routes, "courses"),
+        "guard" => getRouteGuard($routes, "courses"),
     ],
     "subjects" => [
         "url" => getRouteUrl($routes, "subjects"),
         "meta" => getRouteMeta($routes, "subjects"),
+        "guard" => getRouteGuard($routes, "subjects"),
     ],
     "schedules" => [
         "url" => getRouteUrl($routes, "schedules"),
         "meta" => getRouteMeta($routes, "schedules"),
+        "guard" => getRouteGuard($routes, "schedules"),
     ],
     "users" => [
         "url" => getRouteUrl($routes, "users"),
         "meta" => getRouteMeta($routes, "users"),
+        "guard" => getRouteGuard($routes, "users"),
     ],
 ];
 ?>
@@ -79,12 +84,14 @@ $routesSidebars = [
                         <?php
                         if (isset($routesSidebars)) {
                             foreach ($routesSidebars as $sidebar) {
+                                if (array_key_exists(Auth::role(), $sidebar["guard"])) {
                         ?>
-                                <a class="nav-link <?= ($activeSideNavigation === $sidebar["meta"]) ? "active" : "" ?>" href="<?= $sidebar["url"] ?>">
-                                    <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                                    <?= ucfirst($sidebar["meta"]) ?>
-                                </a>
+                                    <a class="nav-link <?= ($activeSideNavigation === $sidebar["meta"]) ? "active" : "" ?>" href="<?= $sidebar["url"] ?>">
+                                        <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
+                                        <?= ucfirst($sidebar["meta"]) ?>
+                                    </a>
                         <?php
+                                }
                             }
                         }
                         ?>
@@ -127,12 +134,12 @@ $routesSidebars = [
 
     <?php
     include INCLUDES_DIRECTORY . '/partials/scripts.php';
-    $routesArray = array_map(function($route){
+    $routesArray = array_map(function ($route) {
         return [
-            "url"=>$route->url(),
-            "meta"=>$route->meta(),
+            "url" => $route->url(),
+            "meta" => $route->meta(),
         ];
-    },$routes);
+    }, $routes);
     ?>
     <script>
         const routes = <?php echo json_encode($routesArray); ?>;

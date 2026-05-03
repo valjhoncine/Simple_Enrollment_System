@@ -20,6 +20,10 @@ define('UPDATE_SUCCESS', "UPDATE_SUCCESS");
 define('UPDATE_FAILED', "UPDATE_FAILED");
 define('REQUEST_RESOURCE_NOT_FOUND', "REQUEST_RESOURCE_NOT_FOUND");
 
+define('USER_ADMINISTRATOR', 0);
+define('USER_CLERK', 1);
+define('USER_FACULTY', 2);
+define('USER_STUDENT', 3);
 define('PAGE_ACCESS_ROLES', [
     '0' => "Administrator",
     "1" => "Clerk",
@@ -63,6 +67,14 @@ function getRouteMeta($routes, $routeName)
         return $route->meta();
     }
     return '';
+}
+function getRouteGuard($routes, $routeName): array
+{
+    $route = $routes[$routeName] ?? null;
+    if ($route instanceof Route) {
+        return $route->guard();
+    }
+    return [];
 }
 function getSessionErrorMessage($key): array
 {

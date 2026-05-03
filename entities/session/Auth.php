@@ -8,7 +8,7 @@ class Auth
     }
     public static function user()
     {
-        return $_SESSION[SESSION_USER];
+        return isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER] : null;
     }
     public static function name()
     {
