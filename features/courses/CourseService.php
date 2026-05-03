@@ -9,7 +9,7 @@ class CourseService
         $this->connection = $connection;
     }
 
-    public function getCourses(): array
+    public function getCourses($courseId = null): array
     {
         $query = "SELECT 
                     id, 
@@ -18,12 +18,21 @@ class CourseService
                     created_at,
                     updated_at
                 FROM courses";
+        if ($courseId) {
+            $query = $query . " WHERE id=?";
+        }
         $statement = mysqli_prepare($this->connection, $query);
 
         if (!$statement) {
             return [];
         }
-
+        if ($courseId) {
+            mysqli_stmt_bind_param(
+                $statement,
+                "i",
+                $courseId
+            );
+        }
         mysqli_stmt_execute($statement);
 
         $result = mysqli_stmt_get_result($statement);

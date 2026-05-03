@@ -11,7 +11,16 @@ class UserService
 
     public function getUserByEmail($email): ?User
     {
-        $query = "SELECT * FROM users where email=?";
+        $query = "SELECT 
+                    u.* ,
+                    p.course_id,
+                    p.student_number,
+                    p.address,
+                    p.date_of_birth
+                FROM users u
+                LEFT JOIN profiles p
+                    ON p.user_id = u.id
+                WHERE u.email=?";
         $statement = mysqli_prepare($this->connection, $query);
 
         if (!$statement) {
@@ -31,7 +40,7 @@ class UserService
         }
 
         $user = new User();
-        $user->id = $row["id"];
+        $user->id = (int)$row["id"];
         $user->first_name = $row["first_name"];
         $user->last_name = $row["last_name"];
         $user->email = $row["email"];
@@ -39,6 +48,14 @@ class UserService
         $user->role = $row["role"];
         $user->created_at = $row["created_at"];
         $user->updated_at = $row["updated_at"];
+        $user->status = $row["status"];
+        $user->profile = Profile::create(
+            $user->id,
+            (int)$row["course_id"],
+            $row["student_number"],
+            $row["address"],
+            $row["date_of_birth"]
+        );
 
         return $user;
     }
@@ -146,7 +163,7 @@ class UserService
         return $user;
     }
 
-    public function getUsers(): array
+    private function getUsersQuery($course_id = null)
     {
         $query = "SELECT 
                     u.id, 
@@ -179,12 +196,26 @@ class UserService
                     on p.user_id = u.id
                 LEFT JOIN courses c
                     on c.id = p.course_id";
+        if ($course_id) {
+            $query = $query . " WHERE c.id=?";
+        }
+        return $query;
+    }
+    public function getUsers($course_id = null): array
+    {
+        $query = $this->getUsersQuery($course_id);
         $statement = mysqli_prepare($this->connection, $query);
 
         if (!$statement) {
             return [];
         }
-
+        if ($course_id) {
+            mysqli_stmt_bind_param(
+                $statement,
+                "i",
+                $course_id
+            );
+        }
         mysqli_stmt_execute($statement);
 
         $result = mysqli_stmt_get_result($statement);

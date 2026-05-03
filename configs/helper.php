@@ -20,6 +20,7 @@ define('UPDATE_SUCCESS', "UPDATE_SUCCESS");
 define('UPDATE_FAILED', "UPDATE_FAILED");
 define('REQUEST_RESOURCE_NOT_FOUND', "REQUEST_RESOURCE_NOT_FOUND");
 
+define('DEFAULT_ALL_COURSES', 1);
 define('USER_ADMINISTRATOR', 0);
 define('USER_CLERK', 1);
 define('USER_FACULTY', 2);
@@ -124,4 +125,8 @@ function apiResponse($status, $data = null, $errors = null, $message = null)
         "error" => $errors
     ]);
     exit;
+}
+function gfGetCourseId(): ?int
+{
+    return Auth::role() === USER_ADMINISTRATOR || Auth::profile()->course_id === DEFAULT_ALL_COURSES ? null : Auth::profile()->course_id;
 }

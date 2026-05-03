@@ -4,7 +4,7 @@ class Profile
 {
     public int $id;
     public int $user_id;
-    public int $course_id;
+    public ?int $course_id;
     public ?string $student_number;
     public ?string $address;
     public ?DateTime $date_of_birth;

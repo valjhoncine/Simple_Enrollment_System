@@ -9,7 +9,7 @@ class SubjectService
         $this->connection = $connection;
     }
 
-    public function getSubjects(): array
+    public function getSubjects($courseId = null): array
     {
         $query = "SELECT 
                     s.id,
@@ -24,12 +24,21 @@ class SubjectService
                 FROM subjects s
                 INNER JOIN courses c
                     ON c.id = s.course_id";
+        if ($courseId) {
+            $query = $query . " WHERE s.course_id=?";
+        }
         $statement = mysqli_prepare($this->connection, $query);
 
         if (!$statement) {
             return [];
         }
-
+        if ($courseId) {
+            mysqli_stmt_bind_param(
+                $statement,
+                "i",
+                $courseId
+            );
+        }
         mysqli_stmt_execute($statement);
 
         $result = mysqli_stmt_get_result($statement);
@@ -132,7 +141,7 @@ class SubjectService
         if (!$statement) {
             return null;
         }
-        
+
         mysqli_stmt_bind_param(
             $statement,
             "ssii",
@@ -145,7 +154,7 @@ class SubjectService
         $result = mysqli_stmt_execute($statement);
 
         if (!$result) {
-             throw new Exception(mysqli_error($this->connection));
+            throw new Exception(mysqli_error($this->connection));
         }
         mysqli_stmt_close($statement);
 

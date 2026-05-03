@@ -4,7 +4,7 @@ require FEATURES_DIRECTORY . '/subjects/SubjectService.php';
 if ($_SERVER['REQUEST_METHOD'] === HTTP_GET && isset($_GET['action']) && $_GET['action'] === 'subjects') {
 
     $subjectService = new SubjectService($connection);
-    $subjects = $subjectService->getSubjects();
+    $subjects = $subjectService->getSubjects(gfGetCourseId());
 
     apiResponse(true, $subjects);
 }

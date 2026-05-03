@@ -22,4 +22,8 @@ class Auth
     {
         return isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]->role : "";
     }
+    public static function profile(): ?Profile
+    {
+        return isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]->profile : null;
+    }
 }

@@ -8,7 +8,7 @@ $errors = getSessionErrorMessage(SCHEDULES_VALIDATION_ERRORS);
 $scheduleService = new ScheduleService($connection);
 $subjectService = new SubjectService($connection);
 
-$subjects = $subjectService->getSubjects();
+$subjects = $subjectService->getSubjects(gfGetCourseId());
 
 if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POST['action'] === 'schedule') {
     $request = $_POST;
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POS
         navigateTo($routes, "schedules-create");
     }
 
-    $result = $scheduleService->save($subject_id,$day,$start_time,$end_time);
+    $result = $scheduleService->save($subject_id, $day, $start_time, $end_time);
     if ($result) {
         $_SESSION[INSERT_SUCCESS] = "Schedule created successfully.";
         navigateTo($routes, "schedules-create");
@@ -73,7 +73,7 @@ ob_start();
                                 if (isset($subjects) || !empty($subjects)) {
                                     $oldSelected = getOldFormValue("subject_id");
                                     foreach ($subjects as $subject) {
-                                        if ($subject->id > 1) {
+                                        if ($subject->course_id > 1) {
                                 ?>
                                             <option
                                                 value="<?= $subject->id ?>"
@@ -82,7 +82,7 @@ ob_start();
                                                     echo 'selected';
                                                 }
                                                 ?>>
-                                                <?= htmlspecialchars($subject->code) . ' - ' . htmlspecialchars($subject->name) ?></option>
+                                                <?= htmlspecialchars($subject->course_code) . ' - ' . htmlspecialchars($subject->code) . ' - ' . htmlspecialchars($subject->name) ?></option>
                                 <?php
                                         }
                                     }

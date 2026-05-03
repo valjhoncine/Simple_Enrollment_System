@@ -9,7 +9,7 @@ class ScheduleService
         $this->connection = $connection;
     }
 
-    public function getSchedules(): array
+    public function getSchedules($courseId = null): array
     {
         $query = "SELECT
                     ss.id,
@@ -24,12 +24,21 @@ class ScheduleService
                     ON s.id = ss.subject_id
                 INNER JOIN courses c
                     ON c.id = s.course_id";
+        if ($courseId) {
+            $query = $query . " WHERE c.id=?";
+        }
         $statement = mysqli_prepare($this->connection, $query);
 
         if (!$statement) {
             return [];
         }
-
+        if ($courseId) {
+            mysqli_stmt_bind_param(
+                $statement,
+                "i",
+                $courseId
+            );
+        }
         mysqli_stmt_execute($statement);
 
         $result = mysqli_stmt_get_result($statement);

@@ -12,7 +12,7 @@ class Subject
     public static function create(string $code, string $name, int $course_id): Subject
     {
         $subject = new Subject();
-        $subject->code = $code;
+        $subject->code = strtoupper($code);
         $subject->name = $name;
         $subject->course_id = $course_id;
         return $subject;

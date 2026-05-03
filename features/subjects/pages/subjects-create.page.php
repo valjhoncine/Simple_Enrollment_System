@@ -8,7 +8,7 @@ $errors = getSessionErrorMessage(SUBJECT_VALIDATION_ERRORS);
 $subjectService = new SubjectService($connection);
 $courseService = new CourseService($connection);
 
-$courses = $courseService->getCourses();
+$courses = $courseService->getCourses(gfGetCourseId());
 
 if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POST['action'] === 'subject') {
     $request = $_POST;
@@ -25,11 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POS
     }
     if (!array_key_exists($course_id, $courses) || $course_id <= 1) {
         $errors["course"][] = "Program/Course is required.";
-    }
-
-    $result = $subjectService->getSubjectByCode($subject_code);
-    if ($result) {
-        $errors["subject_code"][] = "Subject code not available, please enter a different subject code.";
     }
 
     if (!empty($errors)) {

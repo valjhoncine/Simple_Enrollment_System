@@ -6,6 +6,7 @@ class SubjectDto
     public string $name;
     public string $subject;
     public int $course_id;
+    public string $course_code;
     public string $course;
     public DateTime $updated_at;
 
@@ -17,6 +18,7 @@ class SubjectDto
         $obj->name = $row["name"];
         $obj->subject = $row["subject"];
         $obj->course_id = (int)$row["course_id"];
+        $obj->course_code = $row["course_code"];
         $obj->course = $row["course"];
         $obj->updated_at = new DateTime($row["updated_at"]);
         return $obj;

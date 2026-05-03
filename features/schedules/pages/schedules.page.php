@@ -4,7 +4,7 @@ require FEATURES_DIRECTORY . '/schedules/ScheduleService.php';
 if ($_SERVER['REQUEST_METHOD'] === HTTP_GET && isset($_GET['action']) && $_GET['action'] === 'schedules') {
 
     $scheduleService = new ScheduleService($connection);
-    $response = $scheduleService->getSchedules();
+    $response = $scheduleService->getSchedules(gfGetCourseId());
 
     apiResponse(true, $response);
 }

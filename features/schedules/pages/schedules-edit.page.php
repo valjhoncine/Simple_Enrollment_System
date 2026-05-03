@@ -5,7 +5,7 @@ require FEATURES_DIRECTORY . '/subjects/SubjectService.php';
 $scheduleService = new ScheduleService($connection);
 $subjectService = new SubjectService($connection);
 
-$subjects = $subjectService->getSubjects();
+$subjects = $subjectService->getSubjects(gfGetCourseId());
 
 if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POST['action'] == 'schedule-edit') {
     $request = $_POST;
@@ -88,7 +88,7 @@ ob_start();
                                 if (isset($subjects) || !empty($subjects)) {
                                     $oldSelected = isset($selectedSchedule) ? $selectedSchedule->subject_id : getOldFormValue("subject_id");
                                     foreach ($subjects as $subject) {
-                                        if ($subject->id > 1) {
+                                        if ($subject->course_id > 1) {
                                 ?>
                                             <option
                                                 value="<?= $subject->id ?>"
@@ -97,7 +97,7 @@ ob_start();
                                                     echo 'selected';
                                                 }
                                                 ?>>
-                                                <?= htmlspecialchars($subject->code) . ' - ' . htmlspecialchars($subject->name) ?></option>
+                                                <?= htmlspecialchars($subject->course_code) . ' - ' . htmlspecialchars($subject->code) . ' - ' . htmlspecialchars($subject->name) ?></option>
                                 <?php
                                         }
                                     }

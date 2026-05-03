@@ -8,7 +8,7 @@ $errors = getSessionErrorMessage(SUBJECT_VALIDATION_ERRORS);
 $subjectService = new SubjectService($connection);
 $courseService = new CourseService($connection);
 
-$courses = $courseService->getCourses();
+$courses = $courseService->getCourses(gfGetCourseId());
 
 if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POST['action'] == 'subject-edit') {
     $request = $_POST;

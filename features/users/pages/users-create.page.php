@@ -6,7 +6,7 @@ const REGISTER_VALIDATION_ERRORS = "REGISTER_VALIDATION_ERRORS";
 $errors = getSessionErrorMessage(REGISTER_VALIDATION_ERRORS);
 
 $courseService = new CourseService($connection);
-$courses = $courseService->getCourses();
+$courses = $courseService->getCourses(gfGetCourseId());
 
 if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"]) && $_POST['action'] === 'register') {
     $request = $_POST;
