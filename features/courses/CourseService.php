@@ -98,13 +98,14 @@ class CourseService
         }
         $course = Course::create($course_code, $course_title);
 
+        $createdAt = CommonHelper::getDateTimeStringFormat($course->created_at);
         mysqli_stmt_bind_param(
             $statement,
             "ssss",
             $course->code,
             $course->name,
-            CommonHelper::getDateTimeStringFormat($course->created_at),
-            CommonHelper::getDateTimeStringFormat($course->updated_at),
+            $createdAt,
+            $createdAt
         );
 
         $result = mysqli_stmt_execute($statement) && mysqli_stmt_affected_rows($statement) > 0;

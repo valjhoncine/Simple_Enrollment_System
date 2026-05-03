@@ -53,6 +53,7 @@ class UserService
             return null;
         }
 
+        $createdAt = CommonHelper::getDateTimeStringFormat($user->created_at);
         mysqli_stmt_bind_param(
             $statement,
             "ssssiss",
@@ -61,8 +62,8 @@ class UserService
             $user->email,
             $user->passwordhash,
             $user->role,
-            CommonHelper::getDateTimeStringFormat($user->created_at),
-            CommonHelper::getDateTimeStringFormat($user->updated_at),
+            $createdAt,
+            $createdAt
         );
         $result = mysqli_stmt_execute($statement) && mysqli_stmt_affected_rows($statement) > 0;
 
@@ -86,6 +87,7 @@ class UserService
                 throw new Exception("INSERT_FAILED_STATEMENT_USERS");
             }
 
+            $createdAt = CommonHelper::getDateTimeStringFormat($user->created_at);
             mysqli_stmt_bind_param(
                 $statement,
                 "ssssiss",
@@ -94,8 +96,8 @@ class UserService
                 $user->email,
                 $user->passwordhash,
                 $user->role,
-                CommonHelper::getDateTimeStringFormat($user->created_at),
-                CommonHelper::getDateTimeStringFormat($user->updated_at),
+                $createdAt,
+                $createdAt
             );
             if (!mysqli_stmt_execute($statement) || mysqli_stmt_affected_rows($statement) <= 0) {
                 throw new Exception("INSERT_FAILED_USERS");

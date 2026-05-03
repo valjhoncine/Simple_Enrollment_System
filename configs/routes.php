@@ -110,6 +110,24 @@ class Routes
                 ROUTE_PROTECTED,
                 "subjects"
             ),
+            'schedules' => new Route(
+                $baseUrl .  '/schedules',
+                $featuresDirectory . '/schedules/pages/schedules.page.php',
+                ROUTE_PROTECTED,
+                "subject Schedules"
+            ),
+            'schedules-create' => new Route(
+                $baseUrl .  '/schedules/create',
+                $featuresDirectory . '/schedules/pages/schedules-create.page.php',
+                ROUTE_PROTECTED,
+                "subject Schedules"
+            ),
+            'schedules-edit' => new Route(
+                $baseUrl .  '/schedules/edit',
+                $featuresDirectory . '/schedules/pages/schedules-edit.page.php',
+                ROUTE_PROTECTED,
+                "subject Schedules"
+            ),
         ];
     }
 }

@@ -12,6 +12,10 @@ $routesSidebars = [
         "url" => getRouteUrl($routes, "subjects"),
         "meta" => getRouteMeta($routes, "subjects"),
     ],
+    "schedules" => [
+        "url" => getRouteUrl($routes, "schedules"),
+        "meta" => getRouteMeta($routes, "schedules"),
+    ],
     "users" => [
         "url" => getRouteUrl($routes, "users"),
         "meta" => getRouteMeta($routes, "users"),
