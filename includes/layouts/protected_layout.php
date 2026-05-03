@@ -47,8 +47,8 @@ $routesSidebars = [
                     <h6 class="dropdown-header d-flex align-items-center">
                         <img class="dropdown-user-img" src="<?= BASE_URL ?>/assets/sb-admin/img/profiles/profile-1.png" />
                         <div class="dropdown-user-details">
-                            <div class="dropdown-user-details-name"><?= $currentUserFullname ?? "" ?></div>
-                            <div class="dropdown-user-details-email"><?= $currentUserEmail ?? "" ?></div>
+                            <div class="dropdown-user-details-name"><?= Auth::name() ?? "" ?></div>
+                            <div class="dropdown-user-details-email"><?= Auth::email() ?? "" ?></div>
                         </div>
                     </h6>
                     <div class="dropdown-divider"></div>
@@ -94,7 +94,7 @@ $routesSidebars = [
                 <div class="sidenav-footer">
                     <div class="sidenav-footer-content">
                         <div class="sidenav-footer-subtitle">Logged in as:</div>
-                        <div class="sidenav-footer-title"><?= $currentUserFullname ?? "" ?></div>
+                        <div class="sidenav-footer-title"><?= Auth::name() ?? "" ?></div>
                     </div>
                 </div>
             </nav>
