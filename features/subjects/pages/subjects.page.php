@@ -1,23 +1,23 @@
 <?php
-require FEATURES_DIRECTORY . '/courses/CourseService.php';
+require FEATURES_DIRECTORY . '/subjects/SubjectService.php';
 
-if ($_SERVER['REQUEST_METHOD'] === HTTP_GET && isset($_GET['action']) && $_GET['action'] === 'courses') {
+if ($_SERVER['REQUEST_METHOD'] === HTTP_GET && isset($_GET['action']) && $_GET['action'] === 'subjects') {
 
-    $courseService = new CourseService($connection);
-    $courses = $courseService->getCourses();
+    $subjectService = new SubjectService($connection);
+    $subjects = $subjectService->getSubjects();
 
-    apiResponse(true, $courses);
+    apiResponse(true, $subjects);
 }
 
-$pageTitle = "Courses";
+$pageTitle = "Subjects";
 ob_start();
 ?>
 <div class="container-xl px-4 mt-4">
     <div class="card">
         <!-- <div class="card-header">Example Card</div> -->
         <div class="card-body">
-            <a class="btn btn-primary mb-2" href="<?= getRouteUrl($routes, 'courses-create') ?>">Add New Course</a>
-            <table class="table table-bordered table-striped" id="tableCourses"></table>
+            <a class="btn btn-primary mb-2" href="<?= getRouteUrl($routes, 'subjects-create') ?>">Add New Subject</a>
+            <table class="table table-bordered table-striped" id="tableSubjects"></table>
         </div>
     </div>
 </div>
@@ -41,7 +41,7 @@ if (isset($_SESSION[REQUEST_RESOURCE_NOT_FOUND])) {
 }
 ?>
 
-<script src="<?= BASE_URL ?>/js/courses.js"></script>
+<script src="<?= BASE_URL ?>/js/subjects.js"></script>
 
 <?php
 $scripts = ob_get_clean();

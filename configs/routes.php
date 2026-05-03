@@ -43,17 +43,17 @@ class Routes
         return [
             'login' => new Route(
                 $baseUrl .  '/',
-                $featuresDirectory . '/users/login.page.php',
+                $featuresDirectory . '/authenticate/login.page.php',
                 ROUTE_PUBLIC
             ),
             'register' => new Route(
                 $baseUrl .  '/register',
-                $featuresDirectory . '/users/register.page.php',
+                $featuresDirectory . '/authenticate/register.page.php',
                 ROUTE_PUBLIC
             ),
             'logout' => new Route(
                 $baseUrl .  '/logout',
-                $featuresDirectory . '/users/logout.function.php',
+                $featuresDirectory . '/authenticate/logout.function.php',
                 ROUTE_PROTECTED
             ),
             'dashboard' => new Route(
@@ -64,13 +64,13 @@ class Routes
             ),
             'users' => new Route(
                 $baseUrl .  '/users',
-                $featuresDirectory . '/users/lists/users.page.php',
+                $featuresDirectory . '/users/pages/users.page.php',
                 ROUTE_PROTECTED,
                 "users"
             ),
             'users-create' => new Route(
                 $baseUrl .  '/users/create',
-                $featuresDirectory . '/users/lists/users-create.page.php',
+                $featuresDirectory . '/users/pages/users-create.page.php',
                 ROUTE_PROTECTED,
                 "users"
             ),
@@ -91,6 +91,24 @@ class Routes
                 $featuresDirectory . '/courses/pages/courses-edit.page.php',
                 ROUTE_PROTECTED,
                 "courses"
+            ),
+            'subjects' => new Route(
+                $baseUrl .  '/subjects',
+                $featuresDirectory . '/subjects/pages/subjects.page.php',
+                ROUTE_PROTECTED,
+                "subjects"
+            ),
+            'subjects-create' => new Route(
+                $baseUrl .  '/subjects/create',
+                $featuresDirectory . '/subjects/pages/subjects-create.page.php',
+                ROUTE_PROTECTED,
+                "subjects"
+            ),
+            'subjects-edit' => new Route(
+                $baseUrl .  '/subjects/edit',
+                $featuresDirectory . '/subjects/pages/subjects-edit.page.php',
+                ROUTE_PROTECTED,
+                "subjects"
             ),
         ];
     }

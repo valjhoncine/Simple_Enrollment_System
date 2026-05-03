@@ -45,7 +45,7 @@ INSERT INTO profiles (user_id,course_id)values(1,1);
 DROP TABLE IF EXISTS subjects;
 CREATE TABLE IF NOT EXISTS subjects (
     id BIGINT not null PRIMARY key AUTO_INCREMENT,
-    code VARCHAR(50) not null,
+    code VARCHAR(50) not null unique,
     name varchar(255) not null,
     course_id BIGINT not null,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

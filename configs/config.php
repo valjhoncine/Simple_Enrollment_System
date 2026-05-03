@@ -12,4 +12,12 @@ spl_autoload_register(function ($class) {
     }
 });
 
+spl_autoload_register(function ($class) {
+    $base = BASE_DIRECTORY . '/entities/dto';
+    $file = $base . '/' . $class . '.php';
+    if(file_exists($file)){
+        require_once $file;
+    }
+});
+
 $routes = Routes::get(BASE_URL, FEATURES_DIRECTORY);
