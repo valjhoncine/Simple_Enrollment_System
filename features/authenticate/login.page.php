@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === HTTP_POST && isset($_POST["action"])) {
     if ($result) {
         session_regenerate_id(true);
         Auth::setUser($result);
+        gfGuardStudentEnrollment($routes);
         navigateTo($routes, "dashboard");
     } else {
         $_SESSION["INVALID_CREDENTIALS"] = "Invalid Credentials.";

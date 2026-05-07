@@ -6,4 +6,8 @@ class CommonHelper
     {
         return $date_time->format('Y-m-d H:i:s');
     }
+    public  static function getDateStringFormat($date_time): string
+    {
+        return $date_time->format('Y-m-d');
+    }
 }

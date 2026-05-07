@@ -188,6 +188,15 @@ class Routes
                     USER_CLERK
                 ]
             ),
+            'student-enrollment-profile' => new Route(
+                $baseUrl .  '/student-enrollment-profile',
+                $featuresDirectory . '/student-profile/pages/student-enrollment-profile.page.php',
+                ROUTE_PROTECTED,
+                "Enrollment Profile",
+                [
+                    USER_STUDENT
+                ]
+            ),
         ];
     }
 }

@@ -10,6 +10,10 @@ class Auth
     {
         return isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER] : null;
     }
+    public static function id(): int
+    {
+        return isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]->id : 0;
+    }
     public static function name()
     {
         return isset($_SESSION[SESSION_USER]) ? $_SESSION[SESSION_USER]->first_name . ' ' . $_SESSION[SESSION_USER]->last_name : "";

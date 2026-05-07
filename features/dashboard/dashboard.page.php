@@ -1,4 +1,6 @@
 <?php
+gfGuardStudentEnrollment($routes);
+
 $pageTitle = "Dashboard";
 ob_start();
 ?>

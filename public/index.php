@@ -31,7 +31,7 @@ if (isset($routeMap[$pageRequest])) {
         publicPage($routes);
     } elseif ($route->middleware() === ROUTE_PROTECTED) {
         authGuard($routes);
-        if (!array_key_exists(Auth::role(), $route->guard())) {
+        if (!in_array(Auth::role(), $route->guard(), true)) {
             http_response_code(404);
             require FEATURES_DIRECTORY . '/errors/403.php';
             exit;

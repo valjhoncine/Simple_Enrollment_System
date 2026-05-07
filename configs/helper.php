@@ -130,3 +130,9 @@ function gfGetCourseId(): ?int
 {
     return Auth::role() === USER_ADMINISTRATOR || Auth::profile()->course_id === DEFAULT_ALL_COURSES ? null : Auth::profile()->course_id;
 }
+function gfGuardStudentEnrollment($routes)
+{
+    if (Auth::role() === USER_STUDENT && !Auth::profile()->course_id) {
+        navigateTo($routes, "student-enrollment-profile");
+    }
+}
