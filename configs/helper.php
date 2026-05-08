@@ -132,7 +132,7 @@ function gfGetCourseId(): ?int
 }
 function gfGuardStudentEnrollment($routes)
 {
-    if (Auth::role() === USER_STUDENT && !Auth::profile()->course_id) {
+    if (Auth::role() === USER_STUDENT) {
         navigateTo($routes, "student-enrollment-profile");
     }
 }

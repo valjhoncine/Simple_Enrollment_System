@@ -78,7 +78,7 @@ class Routes
                     USER_ADMINISTRATOR,
                     USER_CLERK,
                     USER_FACULTY,
-                    USER_STUDENT
+                    // USER_STUDENT
                 ]
             ),
             'users' => new Route(
