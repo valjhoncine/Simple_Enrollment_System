@@ -10,10 +10,13 @@ if (!$enrollment || ($enrollment->status === 0 || $enrollment->status === -1)) {
     include FEATURES_DIRECTORY . '/student-profile/pages/application/enrollment-application.php';
 } else {
     require FEATURES_DIRECTORY . '/enrollment/ClassProgramService.php';
+    require FEATURES_DIRECTORY . '/users/UserService.php';
 
     $classProgramService = new ClassProgramService($connection);
+    $userService = new UserService($connection);
     $subjects = $classProgramService->getStudentClassProgram(Auth::id());
 
+    $user = $userService->getUserByEmail(Auth::email());
 ?>
     <?php
     $pageTitle = "Profile";
@@ -41,7 +44,7 @@ if (!$enrollment || ($enrollment->status === 0 || $enrollment->status === -1)) {
                             </small>
 
                             <h4 class="fw-semibold mb-0">
-                                <?= Auth::profile()->student_number ?>
+                                <?= $user->profile->student_number ?>
                             </h4>
                         </div>
                     </div>
@@ -52,7 +55,7 @@ if (!$enrollment || ($enrollment->status === 0 || $enrollment->status === -1)) {
                             </small>
 
                             <h5 class="fw-normal mb-0">
-                                <?= Auth::profile()->address ?>
+                                <?= $user->profile->address ?>
                             </h5>
                         </div>
                     </div>
@@ -63,7 +66,7 @@ if (!$enrollment || ($enrollment->status === 0 || $enrollment->status === -1)) {
                             </small>
 
                             <h5 class="fw-normal mb-0">
-                                <?= CommonHelper::getDateStringFormat(Auth::profile()->date_of_birth) ?>
+                                <?= CommonHelper::getDateStringFormat($user->profile->date_of_birth) ?>
                             </h5>
                         </div>
                     </div>
