@@ -165,5 +165,19 @@ if (!$enrollment) {
 <?php
     $scripts = ob_get_clean();
     include INCLUDES_DIRECTORY . '/layouts/protected_layout.php';
+} else if ($enrollment->status === -1) {
+    ob_start();
+?>
+    <div class="container-xl px-4 mt-4">
+        <div class="card">
+            <div class="card-header">Enrollment Application Decline</div>
+            <div class="card-body">
+                Your enrollment application is has been declined.
+            </div>
+        </div>
+    </div>
+<?php
+    $content = ob_get_clean();
+    include INCLUDES_DIRECTORY . '/layouts/protected_layout.php';
 }
 ?>

@@ -25,6 +25,16 @@ $routesSidebars = [
         "meta" => getRouteMeta($routes, "users"),
         "guard" => getRouteGuard($routes, "users"),
     ],
+    "enrollment" => [
+        "url" => getRouteUrl($routes, "enrollment"),
+        "meta" => getRouteMeta($routes, "enrollment"),
+        "guard" => getRouteGuard($routes, "enrollment"),
+    ],
+    "student-enrollment-profile" => [
+        "url" => getRouteUrl($routes, "student-enrollment-profile"),
+        "meta" => getRouteMeta($routes, "student-enrollment-profile"),
+        "guard" => getRouteGuard($routes, "student-enrollment-profile"),
+    ],
 ];
 ?>
 <!DOCTYPE html>
@@ -84,7 +94,7 @@ $routesSidebars = [
                         <?php
                         if (isset($routesSidebars)) {
                             foreach ($routesSidebars as $sidebar) {
-                                if (array_key_exists(Auth::role(), $sidebar["guard"])) {
+                                if (in_array(Auth::role(), $sidebar["guard"])) {
                         ?>
                                     <a class="nav-link <?= ($activeSideNavigation === $sidebar["meta"]) ? "active" : "" ?>" href="<?= $sidebar["url"] ?>">
                                         <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>

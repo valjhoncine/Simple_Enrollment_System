@@ -20,6 +20,7 @@ class Enrollment
     public static function fromArray(array $row): Enrollment
     {
         $obj = new Enrollment();
+        $obj->id = (int) $row["id"];
         $obj->user_id = (int) $row["user_id"];
         $obj->status = (int) $row["status"];
         $obj->created_at = ($row["created_at"] == null) ? null : new DateTime($row["created_at"]);

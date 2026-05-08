@@ -54,7 +54,7 @@ class UserService
             (int)$row["course_id"],
             $row["student_number"],
             $row["address"],
-            $row["date_of_birth"]
+            ($row["date_of_birth"] === null) ? null : new DateTime($row["date_of_birth"])
         );
 
         return $user;

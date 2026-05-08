@@ -85,15 +85,10 @@ CREATE TABLE IF NOT EXISTS class_program (
     enrollment_id BIGINT not null,
     subject_id BIGINT not null,
     schedule_id BIGINT not null,
-    status tinyint not null default 0,
     created_at DATETIME default CURRENT_TIMESTAMP,
-    approved_declined_by BIGINT,
-    approved_declined_at DATETIME,
-    decline_reason VARCHAR(255),
     CONSTRAINT fk_class_program_users_id FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT fk_class_program_enrollment_id FOREIGN KEY (enrollment_id) REFERENCES enrollment(id),
     CONSTRAINT fk_class_program_subject_id FOREIGN KEY (subject_id) REFERENCES subjects(id),
     CONSTRAINT fk_class_program_subject_schedule_id FOREIGN KEY (schedule_id) REFERENCES subject_schedules(id),
-    CONSTRAINT fk_class_program_users_approve_id FOREIGN KEY (approved_declined_by) REFERENCES users(id),
     CONSTRAINT unique_user_subject_schedule UNIQUE (user_id, subject_id, schedule_id)
 );

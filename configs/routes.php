@@ -197,6 +197,15 @@ class Routes
                     USER_STUDENT
                 ]
             ),
+            'enrollment' => new Route(
+                $baseUrl .  '/enrollment',
+                $featuresDirectory . '/enrollment/pages/enrollment.page.php',
+                ROUTE_PROTECTED,
+                "Enrollment Applications",
+                [
+                    USER_FACULTY
+                ]
+            ),
         ];
     }
 }
