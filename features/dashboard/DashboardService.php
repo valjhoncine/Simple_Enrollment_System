@@ -11,7 +11,7 @@ class DashboardService
 
     public function getTotalCourses(): int
     {
-        $query = "SELECT COUNT(*) total FROM courses";
+        $query = "SELECT COUNT(*) total FROM courses where id>1";
 
         $statement = mysqli_prepare($this->connection, $query);
 
