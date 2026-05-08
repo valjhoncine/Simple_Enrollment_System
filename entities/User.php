@@ -19,11 +19,19 @@ class User
         $user->first_name = $first_name;
         $user->last_name = $last_name;
         $user->email = $email;
-        $user->passwordhash = password_hash($password, PASSWORD_DEFAULT);
+        $user->passwordhash = User::hashPassword($password);
         $user->role = $role;
         $user->created_at = new DateTime();
         $user->updated_at = $user->created_at;
 
         return $user;
+    }
+    public static function hashPassword($password): string
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+    public function changePassword($password)
+    {
+        $this->passwordhash = User::hashPassword($password);
     }
 }

@@ -206,6 +206,18 @@ class Routes
                     USER_FACULTY
                 ]
             ),
+            'account' => new Route(
+                $baseUrl .  '/account',
+                $featuresDirectory . '/account/pages/account.page.php',
+                ROUTE_PROTECTED,
+                "account",
+                [
+                    USER_ADMINISTRATOR,
+                    USER_CLERK,
+                    USER_FACULTY,
+                    USER_STUDENT
+                ]
+            ),
         ];
     }
 }
