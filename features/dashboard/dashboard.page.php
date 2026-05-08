@@ -1,5 +1,4 @@
 <?php
-gfGuardStudentEnrollment($routes);
 require FEATURES_DIRECTORY . '/dashboard/DashboardService.php';
 
 $dashboardService = new DashboardService($connection);
